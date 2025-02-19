@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invitación de Boda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Allura', cursive;
             background-color: #faf8f6;
             display: flex;
             justify-content: center;
@@ -26,8 +27,9 @@
         .button {
             background-color: #e6d9c7;
             color: #000;
-            font-size: 18px;
-            font-family: 'Georgia', serif;
+            font-size: 26px;
+            /* font-weight: bolder; */
+            font-family: 'Allura', cursive;
             border: none;
             padding: 15px 30px;
             cursor: pointer;
@@ -39,8 +41,28 @@
             background-color: #d9c6b3;
         }
 
+        .dark-background {
+            background-color: #faf8f6; /* Mismo fondo que la página */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s;
+        }
+
+        .dark-background.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
         .carousel-container {
-            display: none;
             width: 100%;
             max-width: 400px;
             overflow: hidden;
@@ -83,39 +105,44 @@
             outline: none;
         }
 
-        .dark-background {
-            background-color: rgba(0, 0, 0, 0.8);
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10;
-            visibility: hidden;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out, visibility 0.3s;
+        /* Botón de cierre fuera de la tarjeta */
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 22px;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 50%;
+            z-index: 11;
         }
 
-        .dark-background.active {
-            visibility: visible;
-            opacity: 1;
+        .close-button:hover {
+            background: rgba(0, 0, 0, 0.7);
         }
+
     </style>
 </head>
 <body>
     <div class="intro">
-        <button class="button" id="start-button">Apretá acá</button>
+        <button class="button" id="start-button">Pulse aquí</button>
     </div>
 
     <div class="dark-background" id="dark-background">
+        <button class="close-button" id="close-button">✖</button> <!-- Botón de cierre afuera -->
         <div class="carousel-container" id="carousel-container">
             <div class="carousel" id="carousel">
-                <img src="imagen-casamiento1.jpeg" alt="Tarjeta 1">
-                <img src="imagen-casamiento2.jpeg" alt="Tarjeta 2">
-                <!-- Agrega las otras imágenes aquí cuando las tengas -->
+                <img src="./casamiento-primera.jpeg" alt="Tarjeta 1">
+                <img src="./casamiento-segunda.jpeg" alt="Tarjeta 2">
+                <img src="./casamiento-3.jpeg" alt="Tarjeta 2">
+                <img src="./casamiento-4.jpeg" alt="Tarjeta 2">
+                <img src="./casamiento-5.jpeg" alt="Tarjeta 2">
+                <img src="./casameinto-6.jpeg" alt="Tarjeta 2">
+                <img src="./casamiento-7.jpeg" alt="Tarjeta 2">                
+                
             </div>
             <div class="buttons">
                 <button class="carousel-button" id="prev">&#10094;</button>
@@ -127,17 +154,20 @@
     <script>
         const startButton = document.getElementById('start-button');
         const darkBackground = document.getElementById('dark-background');
-        const carouselContainer = document.getElementById('carousel-container');
         const carousel = document.getElementById('carousel');
         const images = document.querySelectorAll('.carousel img');
         const prevButton = document.getElementById('prev');
         const nextButton = document.getElementById('next');
+        const closeButton = document.getElementById('close-button');
 
         let currentIndex = 0;
 
         startButton.addEventListener('click', () => {
             darkBackground.classList.add('active');
-            carouselContainer.style.display = 'block';
+        });
+
+        closeButton.addEventListener('click', () => {
+            darkBackground.classList.remove('active');
         });
 
         function updateCarousel() {
